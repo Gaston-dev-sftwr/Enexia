@@ -24,7 +24,7 @@ const app = createApp({
         // --- CARGAR TODOS LOS EVENTOS ---
         fetchEvents() {
             this.loading = true;
-            axios.get('http://localhost:8081/api/eventos/publico')
+            axios.get('/api/eventos/publico')
                 .then(res => {
                     this.events = res.data.filter(ev => ev.estado === 1);
                 })
@@ -50,7 +50,7 @@ const app = createApp({
             if (!id) return;
 
             this.loading = true;
-            axios.get(`http://localhost:8081/api/eventos/${id}`)
+            axios.get(`/api/eventos/${id}`)
                 .then(res => {
                     this.evento = res.data;
                 })
@@ -60,7 +60,7 @@ const app = createApp({
 
         // --- INSCRIBIRSE (Ruta: /api/inscribir/{id}) ---
         inscribirse(id, nombre) {
-            axios.post(`http://localhost:8081/api/inscribir/${id}`, {}, { withCredentials: true })
+            axios.post(`/api/inscribir/${id}`, {}, { withCredentials: true })
                 .then(res => {
                     alert(`¡Inscripción exitosa a: ${nombre}!`);
                     window.location.href = "mod_historial.html";
