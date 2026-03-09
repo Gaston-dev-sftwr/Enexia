@@ -1,0 +1,93 @@
+/* ----------------------------------------------------------------- */
+/* --- ESTILOS REGISTRO (Monocromático) --- */
+/* ----------------------------------------------------------------- */
+/*
+   La clase .register-body fue ELIMINADA.
+   El fondo ahora es controlado globalmente por 'styles.css'.
+*/
+
+/* Contenedor del formulario (hermano de .login-card) */
+.register-card {
+    background: var(--color-bg-card); /* Negro/Gris de tarjeta */
+    border: 1px solid var(--color-border); /* Borde sutil */
+    border-radius: 16px; 
+    padding: 40px 45px;
+    color: var(--color-text-primary);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6); 
+    
+    max-width: 500px; 
+    width: 90%;
+    margin: 40px 0; /* Margen para pantallas pequeñas */
+}
+
+/* Icono Superior (Silueta de usuario) */
+.register-icon {
+    display: block;
+    width: 70px; 
+    height: 70px;
+    margin: 0 auto 30px auto; 
+    font-size: 32px; /* Más fino */
+    line-height: 70px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.05); /* Más sutil */
+    color: var(--color-text-secondary); /* Color gris de texto */
+}
+
+/* ----------------------------------------------------------------- */
+/* --- ESTILO DE INPUTS (Unificado) --- */
+/* (Copiado de login.css para coherencia) */
+/* ----------------------------------------------------------------- */
+
+.form-group {
+    position: relative;
+}
+
+.form-label {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    background-color: var(--color-bg-input) !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--color-text-primary) !important;
+    border-radius: 8px;
+    padding: 12px 15px;
+    height: 48px;
+    box-shadow: none !important;
+}
+.form-control::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.7;
+}
+
+.form-control:focus {
+    border-color: var(--color-text-secondary) !important; 
+    background-color: var(--color-bg-main) !important;
+}
+
+/* ----------------------------------------------------------------- */
+/* --- MENSAJES DE ESTADO --- */
+/* ----------------------------------------------------------------- */
+
+.form-message {
+    font-size: 0.9em;
+    font-weight: 600;
+}
+/* Estilos para el mensaje de éxito */
+.msg-success {
+    color: var(--color-success) !important; /* Verde desde variable global */
+}
+
+/* Estilos para el mensaje de error */
+.msg-error {
+    color: var(--color-error) !important; /* Rojo desde variable global */
+}
+
+/* NOTA: Las clases .btn-primary y .btn-secondary
+   se cargan globalmente desde styles.css.
+   No es necesario repetirlas aquí.
+*/

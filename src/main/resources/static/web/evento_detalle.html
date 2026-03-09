@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enexia | Detalle del Evento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/mod_base_participante.css">
+</head>
+<body class="bg-dark">
+
+<div id="app" v-cloak>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="mod_eventos.html">
+                <i class="fas fa-arrow-left me-2"></i> Volver a Cartelera
+            </a>
+        </div>
+    </nav>
+
+    <main class="centered-container">
+        <div v-if="loading" class="text-center text-white">
+            <i class="fas fa-spinner fa-spin fa-3x mb-3"></i>
+            <p>Cargando información del evento...</p>
+        </div>
+
+        <div v-if="!loading && evento" class="card giant-event-card shadow-lg border-0">
+            <div class="row g-0 h-100">
+                <div class="col-md-6 d-none d-md-block">
+                    <img :src="evento.urlImagen || 'https://via.placeholder.com/600x800'" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                </div>
+
+                <div class="col-md-6 bg-dark text-white">
+                    <div class="card-body p-5 h-100 d-flex flex-column justify-content-center">
+                        <span class="badge bg-success mb-3 p-2 text-uppercase" style="width: fit-content; letter-spacing: 1px;">
+                            {{ evento.categoria }}
+                        </span>
+
+                        <h1 class="display-4 fw-bold mb-2">{{ evento.nombre }}</h1>
+                        <p class="text-muted mb-4" style="font-size: 1.1rem;">
+                            Organizado por: <span class="text-white fw-bold">{{ evento.nombreOrganizador }}</span>
+                        </p>
+
+                        <hr class="border-secondary opacity-25 mb-4">
+
+                        <div class="event-details-content">
+                            <p class="fw-bold mb-1 text-primary-custom">DESCRIPCIÓN</p>
+                            <p class="mb-4 text-muted" style="line-height: 1.6;">{{ evento.descripcion }}</p>
+
+                            <div class="d-flex mb-3 align-items-center">
+                                <i class="fas fa-calendar-day fa-2x text-success me-3"></i>
+                                <div>
+                                    <p class="small text-muted mb-0">FECHA Y HORA</p>
+                                    <p class="fw-bold mb-0">{{ formatDateTime(evento.fechaInicio, evento.hora) }}</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex mb-3 align-items-center">
+                                <i class="fas fa-map-marker-alt fa-2x text-success me-3"></i>
+                                <div>
+                                    <p class="small text-muted mb-0">UBICACIÓN</p>
+                                    <p class="fw-bold mb-0">{{ evento.direccion }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <button @click="inscribirse(evento.id, evento.nombre)" class="btn btn-details-green btn-lg w-100 py-3 shadow">
+                                <i class="fas fa-check-circle me-2"></i> ¡CONFIRMAR MI INSCRIPCIÓN!
+                            </button>
+                            <a href="mod_eventos.html" class="btn btn-link text-muted w-100 mt-3 text-decoration-none">Ver otros eventos disponibles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="js/mod_participante.js"></script>
+</body>
+</html>

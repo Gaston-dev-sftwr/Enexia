@@ -1,0 +1,161 @@
+/* ------------------------------------------------------------------------------------------------------ */
+/* --- ESTILOS MAESTROS (Fondo, Layout y Paleta Dark Mode) --- */
+/* ------------------------------------------------------------------------------------------------------ */
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+/* --- PALETA DE COLORES (Gris/Azul Minimalista) --- */
+:root {
+    /* 1. Paleta de Fondos (Negros Mate / Grises) */
+    --color-bg-main: #121212;      /* Un negro "material design" casi puro */
+    --color-bg-card: #1E1E1E;      /* Un gris muy oscuro para tarjetas y fondos */
+    --color-bg-input: #252525;     /* Un gris para los campos de input */
+
+    /* 2. Paleta de Texto (Blancos / Grises Claros) */
+    --color-text-primary: #F0F0F0;   /* Blanco suave, no #FFFFFF puro (cansa menos) */
+    --color-text-secondary: #8E8E8E; /* Gris claro para labels y placeholders */
+
+    /* 3. Paleta de Bordes y Líneas */
+    --color-border: #333333;       /* Un borde muy sutil, apenas visible */
+
+    /* 4. Paleta Semántica (Éxito y Error) */
+    --color-success: #00b894;       /* Verde elegante (el que usamos en "modificar") */
+    --color-error: #ff4d4d;         /* Rojo brillante para errores */
+    
+    /* 5. Paleta de Acentos (Ahora es "no-color") */
+    /* Para botones primarios */
+    --color-accent-btn-bg: #F0F0F0;   /* Fondo de botón primario (blanco) */
+    --color-accent-btn-text: #121212;  /* Texto de botón primario (negro) */
+    --color-accent-btn-hover: #FFFFFF; /* Hover de botón primario (blanco puro) */
+    
+    /* Para enlaces secundarios */
+    --color-accent-link: #E0E0E0;      /* Enlaces de texto */
+}
+
+
+/* Centrado Horizontal 
+padding: 0;
+margin: 0;
+
+*/
+
+body {
+    /* Fondo negro mate */
+    background-color: var(--color-bg-main); 
+    color: var(--color-text-primary); /* Texto blanco suave */
+    
+    /* ¡Clave para la elegancia! */
+    line-height: 1.6; /* Añade más espacio entre líneas de texto */
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* Mejoras de renderizado de fuente */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 600; /* Usa 600 (Semibold) en lugar de 700 (Bold) o 800 */
+    color: var(--color-text-primary);
+}
+
+.container {
+    flex-grow: 1; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; /* <-- Esto centra la tarjeta */
+}
+
+/* Clases de Contenido General (para el prototipo de Registro/Login) */
+.text-center {
+    text-align: center;
+}
+.mt-4 { margin-top: 1.5rem !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+
+/* -------------------------------------------------- */
+/* --- ESTILOS DE HEADER (Para otros prototipos) --- */
+/* -------------------------------------------------- */
+.header-minimal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #333;
+    background-color: #000;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+}
+.header-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-text-main);
+}
+.btn-access {
+    background-color: #4a4a4d;
+    color: var(--color-text-main);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--color-accent-btn-bg); /* Fondo blanco suave */
+    color: var(--color-accent-btn-text); /* Texto negro */
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent-btn-hover); /* Blanco más brillante */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-link-custom {
+    color: var(--color-text-secondary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.btn-link-custom:hover {
+    color: var(--color-text-primary);
+}
+
+/* --- BOTONES SEMÁNTICOS (Éxito y Error) --- */
+.btn-success {
+    background-color: var(--color-success);
+    color: white;
+    /* (hereda el resto de .btn-primary) */
+}
+.btn-danger {
+    background-color: var(--color-error);
+    color: white;
+    /* (hereda el resto de .btn-primary) */
+}

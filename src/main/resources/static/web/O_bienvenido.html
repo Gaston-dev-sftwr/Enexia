@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida - Enexia</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="css/O_bienvenido.css">
+
+    <style>
+        [v-cloak] { display: none; }
+    </style>
+</head>
+<body class="index-body">
+<div id="app" class="success-container" v-cloak>
+
+    <i :class="['fas success-icon', isError ? 'fa-times-circle' : 'fa-check-circle']"
+       :style="{ color: isError ? 'var(--color-error)' : 'var(--color-success)' }"></i>
+
+    <h1 :class="{ 'text-error': isError, 'text-success': !isError }" class="success-title">
+        {{ welcomeMessage }}
+    </h1>
+
+    <button v-if="!isError" @click="goToManagement" class="btn btn-primary">
+        {{ buttonText }}
+    </button>
+
+    <button v-if="isError" @click="goToLogin" class="btn btn-primary"
+            :style="{ backgroundColor: 'var(--color-error)', color: 'white' }">
+        Volver a Login
+    </button>
+
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="js/bienvenido.js"></script>
+</body>
+</html>

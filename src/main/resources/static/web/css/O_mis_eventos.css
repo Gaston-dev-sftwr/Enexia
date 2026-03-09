@@ -1,0 +1,79 @@
+/* ------------------------------------------------------------------------------------------------------ */
+/* --- ESTILOS ESPECÍFICOS DE LA PANTALLA DE MIS EVENTOS --- */
+/* ------------------------------------------------------------------------------------------------------ */
+
+/* Main Content: Asegura que el contenido esté alineado al centro */
+.main-content {
+    flex-grow: 1; 
+    padding: 40px 20px;
+    max-width: 1300px; /* Aseguramos el ancho máximo */
+    margin: 0 auto;
+    
+    /* ELIMINAR PROPIEDADES DE CENTRADO VERTICAL/HORIZONTAL aquí si las hay */
+    display: block; /* Volvemos a un flujo de bloque normal */
+}
+
+.section-title {
+    font-size: 20px; 
+    font-weight: 600;
+    color: var(--color-text-label); 
+    margin-bottom: 30px;
+    text-align: center !important; /* Centrado Forzado */
+    padding-left: 0; /* Elimina cualquier desplazamiento a la izquierda */ /* Alineamos con el contenido de las tarjetas */
+}
+
+/* Estilo de la tarjeta de gestión (basado en el Dark Mode base) */
+.event-management-card {
+    background-color: var(--color-bg-card) !important; /* Fondo de la tarjeta */
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    height: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.event-management-card .card-body {
+    padding: 15px;
+}
+
+.event-management-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.event-management-card .card-text {
+    font-size: 0.9rem;
+    color: var(--color-accent); 
+}
+
+/* Contenedor de los botones */
+.management-actions {
+    display: flex; /* CRÍTICO: Usa Flexbox para poner los botones uno al lado del otro */
+    justify-content: space-between; 
+    margin-top: 15px;
+}
+
+/* Botón Modificar */
+.btn-action-edit {
+    background-color: #4a4a4d; /* Gris sutil */
+    color: white;
+    border: none;
+    transition: background-color 0.2s;
+    flex-grow: 1; /* Permite que el botón crezca */
+    margin-right: 5px;
+}
+
+.btn-action-edit:hover {
+    background-color: #5c7a95; /* Gris azulado de acento */
+}
+
+/* Botón Eliminar */
+.btn-action-delete {
+    background-color: #ff4d4d; /* Rojo suave de peligro */
+    color: white;
+    border: none;
+    transition: background-color 0.2s;
+    flex-grow: 1; /* Permite que el botón crezca */
+    margin-left: 5px;
+}

@@ -1,0 +1,77 @@
+/* ----------------------------------------------------------------- */
+/* --- ESTILOS CREAR EVENTO (Monocromático) --- */
+/* ----------------------------------------------------------------- */
+
+.form-wrapper-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    
+    /* === CORRECCIÓN DE ANCHO === */
+    max-width: 900px; /* Ahora es más ancho */
+    margin: 40px auto;
+}
+
+/* ----------------------------------------------------------------- */
+/* --- ESTILO DE INPUTS (Unificado con Login) --- */
+/* (Reemplaza .form-group-custom y .form-label-icon) */
+/* ----------------------------------------------------------------- */
+
+.form-group {
+    position: relative;
+    margin-bottom: 20px; 
+}
+
+.form-label {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-control, .form-select {
+    background-color: var(--color-bg-input) !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--color-text-primary) !important;
+    border-radius: 8px;
+    padding: 12px 15px;
+    height: 48px;
+    box-shadow: none !important;
+}
+.form-control::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.7;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--color-text-secondary) !important; 
+    background-color: var(--color-bg-main) !important;
+}
+
+/* Ajuste para el Textarea */
+.textarea {
+    min-height: 120px;
+    height: auto !important;
+}
+
+/* ----------------------------------------------------------------- */
+/* --- MENSAJES DE ESTADO --- */
+/* ----------------------------------------------------------------- */
+
+.form-message {
+    font-size: 0.9em;
+    font-weight: 600;
+}
+.msg-success {
+    color: var(--color-success) !important;
+}
+.msg-error {
+    color: var(--color-error) !important;
+}
+
+/* NOTA: .btn-create fue eliminado. 
+   Ahora usamos .btn-primary de styles.css 
+*/

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Gestión de Eventos</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="css/styles.css"> 
+    <link rel="stylesheet" href="css/O_panel.css"> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body id="panelApp"> 
+    
+    <header class="header-minimal">
+        <h1 class="header-title">Panel de Gestión</h1>
+        
+        <a href="#" @click.prevent="handleLogout" class="btn btn-primary">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </a>
+    </header>
+
+    <main class="panel-main-content">
+        <div class="cards-grid-wrapper">
+            
+            <h2 class="section-title text-center mb-5" :class="{'text-error': isError}" v-cloak>
+                {{ welcomeMessage }}
+            </h2>
+
+            <div class="panel-cards-grid">
+                
+                <a href="O_crear_evento.html" class="management-card card-create">
+                    <i class="fas fa-plus-circle card-icon"></i>
+                    <span class="card-title">Crear Nuevo Evento</span>
+                    <span class="card-description">Registra un evento desde cero.</span>
+                </a>
+
+                <a href="O_mis_eventos.html" class="management-card card-list">
+                    <i class="fas fa-list-ul card-icon"></i>
+                    <span class="card-title">Ver Mis Eventos</span>
+                    <span class="card-description">Listado de eventos creados por usted.</span>
+                </a>
+                
+                <a href="eventos_publicos.html" class="management-card card-public">
+                    <i class="fas fa-search card-icon"></i>
+                    <span class="card-title">Explorar Eventos</span>
+                    <span class="card-description">Ver el listado público completo.</span>
+                </a>
+
+            </div>
+            
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/panel.js"></script> 
+</body>
+</html>

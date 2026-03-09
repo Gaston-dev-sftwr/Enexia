@@ -1,0 +1,57 @@
+200 +
+
+200. OK:
+La solicitud fue exitosa.
+Es la respuesta estándar para GET.
+"GET /api/eventos/publico, PUT /api/eventos/{id} (Actualización exitosa)."
+
+
+201. Created.
+El recurso (entidad) ha sido creado exitosamente.
+"POST /api/organizadores, POST /api/eventos."
+
+204. No Content.
+"La solicitud fue exitosa, pero no hay contenido para devolver en el cuerpo."
+"DELETE /api/eventos/{id} (aunque tu DELETE devuelve 200 OK por tener cuerpo, el 204 es el más puro para eliminación)."
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+400 +
+
+400. Bad Request
+El servidor no pudo entender la solicitud debido a una sintaxis inválida o parámetros faltantes.
+Si el POST de un evento no incluye el nombre.
+
+
+401. Unauthorized.
+CRÍTICO: El usuario no está autenticado.
+Falta la JSESSIONID (la cookie de sesión) o es inválida/expiró.
+Si un Organizador intenta acceder a /api/eventos/mis-eventos sin antes haber hecho login.
+
+
+403. Forbidden.
+"CRÍTICO: El usuario está autenticado, pero no tiene permiso para acceder a ese recurso."
+Si un PARTICIPANTE intenta usar POST /api/eventos (solo autorizado para ORGANIZADOR).
+O si un ORGANIZADOR intenta modificar un evento que no es suyo (Regla de Propiedad).
+
+
+404. Not Found.
+El recurso o endpoint solicitado no existe en el servidor.
+Si se hace GET /api/evento/999 y ese ID no existe.
+
+409. Conflict.
+La solicitud no se pudo completar debido a un conflicto con el estado actual del recurso.
+Ideal para tu validación: Registro fallido porque el email ya existe (Email Único).
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+500 +
+
+
+500. Internal Server Error.
+Fallo genérico del servidor. Algo salió mal en la ejecución del código (ej., error de JPA/Hibernate, excepción no controlada).
+Si la base de datos se cae o hay un NullPointerException en tu EventoController.
+
+503. Service Unavailable.
+El servidor no está listo para manejar la solicitud (saturado, mantenimiento, o, en tu caso, MySQL está apagado).
+Aunque tu log dio un error de conexión, la respuesta final al cliente suele ser un 503 o 500.

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Eventos | Gestión</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="css/styles.css"> 
+    <link rel="stylesheet" href="css/O_mis_eventos.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+    
+    <header class="header-minimal">
+        <a href="O_panel.html" class="btn-access">
+            <i class="fas fa-arrow-left"></i> Volver al Panel
+        </a>
+        <h1 class="header-title">Mis Eventos Creados</h1>
+        <a href="O_crear_evento.html" class="btn-access" style="background-color: var(--color-accent);">
+            <i class="fas fa-plus-circle"></i> Crear Nuevo
+        </a>
+    </header>
+
+    <main class="main-content container" id="misEventosApp">
+        <h2 class="section-title" style="text-align: left; padding-left: 0;">Eventos Propios (Organizador)</h2>
+        
+        <p v-if="loadingMsg" class="text-center" style="color: var(--color-text-label);">
+            {{ loadingMsg }}
+        </p>
+
+        <p v-if="errorMessage" :style="{ color: errorMessage.includes('No hay') ? 'var(--color-text-label)' : '#ff4d4d' }" class="text-center mt-3" style="font-weight: 600;">
+            {{ errorMessage }}
+        </p>
+        
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" v-if="events.length"> 
+            
+            <div class="col" v-for="event in events" :key="event.id">
+                
+                <div class="card event-management-card">
+                    
+                    <img :src="event.urlImagen" class="card-img-top" :alt="event.nombre" style="height: 180px; object-fit: cover;">
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.nombre }}</h5>
+                        <p class="card-text text-muted">{{ event.categoria }}</p>
+                        
+                        <div class="management-actions mt-3">
+                            <a href="#" @click.prevent="goToEdit(event.id)" class="btn btn-sm btn-action-edit">
+                                <i class="fas fa-edit"></i> Modificar
+                            </a>
+                            <a href="#" @click.prevent="handleDelete(event.id)" class="btn btn-sm btn-action-delete">
+                                <i class="fas fa-trash-alt"></i> Eliminar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </main>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/mis_eventos.js"></script>
+</body>
+</html>

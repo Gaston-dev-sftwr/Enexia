@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos Públicos</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <link rel="stylesheet" href="css/styles.css"> 
+    <link rel="stylesheet" href="css/eventos_publicos.css"> 
+    <link rel="stylesheet" href="css/plastic_card.css"> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="header-public">
+        <h1 class="header-title">Eventos Disponibles</h1>
+        <a href="login.html" class="btn-access">
+            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión (Organizador)
+        </a>
+    </header>
+
+    <main class="main-content container" id="publicEventsApp">
+        
+        <p v-if="loadingMsg" class="alert alert-info text-center">
+            {{ loadingMsg }}
+        </p>
+
+        <p v-if="errorMessage" class="alert alert-warning text-center">
+            <i class="fas fa-info-circle"></i> {{ errorMessage }}
+        </p>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" v-if="events.length > 0">
+            
+            <div class="col d-flex justify-content-center mb-4" v-for="evento in events" :key="evento.id">
+                
+                <div class="plastic-card"> 
+                    
+                    <div class="titanium-plastic-card"> 
+                        
+                        <div class="plastic-card__part plastic-card__front" style="padding: 0;"> 
+                            <div style="width: 100%; height: 100%; position: relative; overflow: hidden; border-radius: 8px;">
+                                
+                                <img :src="evento.urlImagen || 'https://via.placeholder.com/400x250.png?text=Evento'" alt="Flyer del Evento" 
+                                    style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 8px;">
+                                
+                                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; color: white; text-align: center; padding: 20px 18px 0 18px; background: rgba(0, 0, 0, 0.95); border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; box-sizing: border-box;">
+                                    
+                                    <p class="plastic-card__info" style="font-size: 14px; margin-bottom: 1px; font-weight: bold; line-height: 1.2;">
+                                        {{ evento.nombre }}
+                                    </p>
+                                    <span class="plastic-card__label" style="font-size: 8px;">{{ evento.categoria }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="plastic-card__part plastic-card__back">
+                            <div class="plastic-card__back-content" style="color: white; height: 100%; overflow: auto; padding: 20px 15px;">
+                                <h5 style="font-size: 1.1rem; margin-bottom: 5px; font-weight: bold;">Detalles:</h5>
+                                <hr style="color: rgba(255, 255, 255, 0.3); margin-top: 5px; margin-bottom: 10px;">
+                                
+                                <p class="plastic-card__label" style="font-size: 9px;">Descripción</p>
+                                <p class="plastic-card__info" style="font-size: 12px; line-height: 1.4; text-transform: none; margin-bottom: 15px;">
+                                    {{ evento.descripcion }}
+                                </p>
+
+                                <p class="plastic-card__label">
+                                    <i class="bi bi-calendar-event-fill"></i> FECHA Y HORA
+                                </p>
+                                <p class="plastic-card__info" style="font-size: 13px; margin-bottom: 5px;">
+                                    {{ formatDateTime(evento.fechaInicio, evento.hora) }}
+                                </p>
+                                
+                                <p class="plastic-card__label">
+                                    <i class="bi bi-geo-alt-fill"></i> UBICACIÓN
+                                </p>
+                                <p class="plastic-card__info" style="font-size: 13px;">
+                                    {{ evento.direccion }}
+                                </p>
+                            </div>
+                        </div>
+
+                    </div> </div> </div> </div> </main>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/eventos_publicos.js"></script> 
+</body>
+</html>

@@ -1,0 +1,36 @@
+/* ----------------------------------------------------------------- */
+/* --- ESTILOS DE BIENVENIDA (Monocromático) --- */
+/* ----------------------------------------------------------------- */
+
+.success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh; 
+    text-align: center;
+    background-color: transparent; 
+}
+
+.success-title {
+    font-size: 2.5rem;
+    font-weight: 700; /* Mantenemos 700 para el título principal */
+    margin-bottom: 30px;
+}
+
+.success-icon {
+    font-size: 6rem;
+    margin-bottom: 20px;
+}
+
+.text-error {
+    color: var(--color-error); /* Usa la variable de error */
+}
+
+.text-success {
+    color: var(--color-text-primary); /* Usa la variable de texto */
+}
+
+/* NOTA: Los botones .btn-primary se cargan 
+   globalmente desde styles.css 
+*/

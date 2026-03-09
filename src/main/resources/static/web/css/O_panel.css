@@ -1,0 +1,100 @@
+/* ----------------------------------------------------------------- */
+/* --- ESTILOS DEL PANEL (Monocromático) --- */
+/* ----------------------------------------------------------------- */
+
+.panel-main-content {
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    padding: 40px 20px;
+}
+
+.cards-grid-wrapper {
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Título "Bienvenido..." */
+.section-title {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+.text-error {
+    color: var(--color-error); /* Usa la variable de error */
+}
+
+.panel-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Estilo de la Carta Individual */
+.management-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    /* Paleta Monocromática */
+    background-color: var(--color-bg-card); /* Fondo gris oscuro */
+    color: var(--color-text-primary); /* Texto blanco suave */
+    border: 1px solid var(--color-border); /* Borde sutil */
+    
+    padding: 40px 25px; 
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efecto Hover (Elegante) */
+.management-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    /* El borde se vuelve blanco en lugar de azul */
+    border-color: var(--color-text-primary); 
+}
+
+/* Iconografía (Gris sutil) */
+.card-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    /* El icono ahora usa el gris secundario */
+    color: var(--color-text-secondary); 
+    transition: color 0.3s;
+}
+
+.management-card:hover .card-icon {
+    /* Al hacer hover, el icono se vuelve blanco primario */
+    color: var(--color-text-primary); 
+}
+
+/* Títulos y Descripciones */
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 600; /* 600 es más fino que 700 */
+    margin-bottom: 5px;
+    color: var(--color-text-primary);
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary); /* Gris secundario */
+}
+
+
+/* Media Query (sin cambios) */
+@media (max-width: 992px) {
+    .panel-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 576px) {
+    .panel-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}

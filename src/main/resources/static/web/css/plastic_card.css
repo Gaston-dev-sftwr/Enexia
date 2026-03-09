@@ -1,0 +1,98 @@
+/* ----------------------------------------------------------------- */
+/* --- ESTILOS TITANIUM PLASTIC CARD (PROPORCIONES ORIGINALES) --- */
+/* ----------------------------------------------------------------- */
+
+.plastic-card {
+    width: 320px;  /* Ancho original */
+    height: 450px; /* Alto original */
+    perspective: 1000px;
+    position: relative;
+    cursor: pointer;
+    margin: 20px auto; /* Centrado en su columna */
+}
+
+.plastic-card .titanium-plastic-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 12px;
+}
+
+.plastic-card:hover .titanium-plastic-card {
+    transform: rotateY(180deg);
+}
+
+.plastic-card__part {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.plastic-card__front {
+    transform: rotateY(0deg);
+    z-index: 2;
+}
+
+/* Overlay igual al público para el nombre del evento */
+.plastic-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 20px 18px;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.plastic-card__back {
+    transform: rotateY(180deg);
+    background-color: #222222;
+}
+
+.plastic-card__back-content {
+    padding: 20px 15px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+/* Botón de Inscripción/Acción Blanco */
+.btn-primary-public {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    border: none;
+    font-weight: 800;
+    padding: 12px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-top: auto;
+    transition: all 0.3s;
+}
+
+.plastic-card__label {
+    font-size: 9px;
+    color: #8e8e93;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.plastic-card__info {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+}

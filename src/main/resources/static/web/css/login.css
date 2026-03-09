@@ -1,0 +1,110 @@
+/* ----------------------------------------------------------------- */
+/* --- ESTILOS LOGIN (Monocromático) --- */
+/* ----------------------------------------------------------------- */
+
+.login-card {
+    background: var(--color-bg-card); /* Negro/Gris de tarjeta */
+    border: 1px solid var(--color-border); /* Borde sutil */
+    border-radius: 16px; 
+    padding: 40px 45px;
+    color: var(--color-text-primary);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6); 
+    
+    max-width: 420px; 
+    width: 90%;
+    margin: 40px 0; 
+}
+
+/* Icono Superior (Silueta de usuario) */
+.login-icon {
+    display: block;
+    width: 70px; 
+    height: 70px;
+    margin: 0 auto 30px auto; 
+    font-size: 32px; /* Más fino */
+    line-height: 70px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.05); /* Más sutil */
+    color: var(--color-text-secondary); /* Color gris de texto */
+}
+
+/* ----------------------------------------------------------------- */
+/* --- ESTILO DE INPUTS (En caja) --- */
+/* ----------------------------------------------------------------- */
+
+.form-group {
+    position: relative;
+}
+
+.form-label {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    background-color: var(--color-bg-input) !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--color-text-primary) !important;
+    border-radius: 8px;
+    padding: 12px 15px;
+    height: 48px;
+    box-shadow: none !important;
+}
+.form-control::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.7;
+}
+
+.form-control:focus {
+    border-color: var(--color-text-secondary) !important; 
+    background-color: var(--color-bg-main) !important;
+}
+
+
+/* ----------------------------------------------------------------- */
+/* --- BOTONES Y MENSAJES --- */
+/* (Estos .btn-primary y .btn-secondary deben estar en styles.css) */
+/* ----------------------------------------------------------------- */
+
+/* Mensaje de error */
+.login-error {
+    color: var(--color-error);
+    font-weight: 600;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+/* Botón Primario (Blanco con texto negro) */
+/* Asegúrate de que este estilo esté en tu styles.css global */
+.btn-primary {
+    background-color: var(--color-accent-btn-bg);
+    color: var(--color-accent-btn-text);
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+.btn-primary:hover {
+    background-color: var(--color-accent-btn-hover);
+}
+
+/* Botón Secundario (Enlace gris) */
+/* Asegúrate de que este estilo esté en tu styles.css global */
+.btn-secondary {
+    color: var(--color-text-secondary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.btn-secondary:hover {
+    color: var(--color-text-primary);
+}
