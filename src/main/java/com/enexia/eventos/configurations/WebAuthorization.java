@@ -76,6 +76,11 @@ public class WebAuthorization {
                 // RUTAS PÚBLICAS
 
 
+
+                .antMatchers("/", "/index.html", "/web/index.html", "/favicon.ico").permitAll()
+                .antMatchers("/web/css/**", "/web/js/**", "/web/img/**").permitAll()
+
+
                 .antMatchers(HttpMethod.GET, "/api/eventos/publico").permitAll()
 
                 .antMatchers("/web/mod_cambiar_password.html").permitAll()
