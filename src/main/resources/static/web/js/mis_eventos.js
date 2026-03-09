@@ -61,7 +61,7 @@ const app = Vue.createApp({
                 if (result.isConfirmed) {
                     
                     // Tu lógica de Axios que ya tenías
-                    axios.delete(`http://localhost:8081/api/eventos/${eventId}`, { withCredentials: true })
+                    axios.delete(`/api/eventos/${eventId}`, { withCredentials: true })
                         .then(() => {
                             // Pop-up de éxito
                             Swal.fire({
