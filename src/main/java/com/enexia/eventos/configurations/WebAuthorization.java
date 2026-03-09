@@ -108,7 +108,7 @@ public class WebAuthorization {
 
                 .antMatchers(HttpMethod.GET, "/api/usuarios/actual").authenticated()
 
-                .anyRequest().denyAll();
+                .anyRequest().permitAll();
 
         // 3. Configuración de Login (Encadenada para eliminar redundancia)
         http.formLogin()
