@@ -4,13 +4,12 @@ import com.enexia.eventos.models.PasswordResetToken;
 import com.enexia.eventos.models.Usuario;
 import com.enexia.eventos.repositories.PasswordResetTokenRepository;
 import com.enexia.eventos.repositories.UsuarioRepository;
+import com.enexia.eventos.services.ResendService; // Importamos tu nuevo servicio
 import com.enexia.eventos.utils.ValidadorPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +21,7 @@ import java.util.UUID;
 public class AuthController {
 
     @Autowired
-    private JavaMailSender mailSender; // Inyectamos el motor de correos directamente
+    private ResendService resendService; // Cambiamos JavaMailSender por ResendService
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -39,63 +38,48 @@ public class AuthController {
     @Value("${app.base-url}")
     private String baseUrl;
 
-
-
     @GetMapping("/test-email")
     public ResponseEntity<?> probarEmail() {
         try {
-            SimpleMailMessage mensaje = new SimpleMailMessage();
+            // Probamos con un HTML simple
+            String contenidoHtml = "<h1>¡Conexión Exitosa!</h1><p>Si recibís esto, Enexia ya está hablando con la API de Resend.</p>";
 
-            // Los datos que configuramos antes
-            mensaje.setFrom("soporte@enexia.com");
-            mensaje.setTo("prueba@enexia.com"); // No importa que no exista, Mailtrap lo atrapa
-            mensaje.setSubject("Prueba de Conexión Enexia");
-            mensaje.setText("¡Hola! Si ves este mensaje en tu panel de Mailtrap, la configuración es un éxito.");
+            resendService.enviarCorreo("tu-email-de-prueba@gmail.com", "Prueba de API Resend - Enexia", contenidoHtml);
 
-            mailSender.send(mensaje);
-
-            return ResponseEntity.ok("Correo enviado a Mailtrap con éxito. Revisá tu bandeja virtual.");
+            return ResponseEntity.ok("Petición enviada a Resend con éxito. Revisá tu casilla.");
         } catch (Exception e) {
-            // Si algo falla (como las credenciales), lo veremos acá
-            return ResponseEntity.status(500).body("Error al enviar el correo: " + e.getMessage());
+            return ResponseEntity.status(500).body("Error en la API de Resend: " + e.getMessage());
         }
     }
 
-
     @PostMapping("/recuperar-password")
     public ResponseEntity<?> solicitarRecuperacion(@RequestParam String email) {
-
-
         try {
-            // 1. Buscamos al usuario por su email
             Usuario usuario = usuarioRepository.findByEmail(email);
             if (usuario == null) {
                 return new ResponseEntity<>("No existe un usuario con ese correo electrónico.", HttpStatus.NOT_FOUND);
             }
 
-            // 2. Generamos un token aleatorio único
             String tokenUnico = UUID.randomUUID().toString();
-
-            // 3. Guardamos el token en la base de datos vinculado al usuario
-            // Nota: Si ya existía uno viejo, podrías borrarlo antes con tokenRepository.deleteByUsuario(usuario)
             PasswordResetToken resetToken = new PasswordResetToken(tokenUnico, usuario);
             passwordResetTokenRepository.save(resetToken);
 
-            // 4. Preparamos el link que el usuario recibirá (apunta a tu front de cambio de pass)
-            // El puerto 8081 es el que usás según tus propiedades
             String linkRecuperacion = baseUrl + "/web/mod_cambiar_password.html?token=" + tokenUnico;
 
-            // 5. Enviamos el mail real usando lo que ya probamos
-            SimpleMailMessage mensaje = new SimpleMailMessage();
-            mensaje.setFrom("soporte@enexia.com");
-            mensaje.setTo(email);
-            mensaje.setSubject("Recuperación de Contraseña - ENEXIA");
-            mensaje.setText("Hola " + usuario.getNombre() + ",\n\n" +
-                    "Has solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para continuar:\n" +
-                    linkRecuperacion + "\n\n" +
-                    "Este enlace expirará en 15 minutos.");
+            // Preparamos un cuerpo HTML más profesional que el SimpleMailMessage
+            String cuerpoHtml = String.format(
+                    "<div style='font-family: Arial, sans-serif; border: 1px solid #ddd; padding: 20px; border-radius: 10px;'>" +
+                            "<h2>Hola, %s</h2>" +
+                            "<p>Has solicitado restablecer tu contraseña en <strong>ENEXIA</strong>.</p>" +
+                            "<p>Haz clic en el siguiente botón para continuar:</p>" +
+                            "<a href='%s' style='background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;'>Restablecer Contraseña</a>" +
+                            "<p style='margin-top: 20px; font-size: 0.8em; color: #666;'>Este enlace expirará en 15 minutos.</p>" +
+                            "</div>",
+                    usuario.getNombre(), linkRecuperacion
+            );
 
-            mailSender.send(mensaje);
+            // Enviamos el mail usando la API
+            resendService.enviarCorreo(email, "Recuperación de Contraseña - ENEXIA", cuerpoHtml);
 
             return ResponseEntity.ok("Se ha enviado un correo con las instrucciones.");
 
@@ -104,14 +88,9 @@ public class AuthController {
         }
     }
 
-
-
-
     @PostMapping("/cambiar-password")
     public ResponseEntity<?> cambiarPassword(@RequestParam String token, @RequestParam String nuevaPassword) {
         try {
-            // Ejecutamos la validación centralizada
-            // Si falla, tira la excepción y el flujo salta directamente al catch
             validadorPassword.validar(nuevaPassword);
 
             Optional<PasswordResetToken> tokenOptional = passwordResetTokenRepository.findByToken(token);
@@ -127,10 +106,7 @@ public class AuthController {
             return ResponseEntity.ok("Contraseña actualizada con éxito.");
 
         } catch (Exception e) {
-            // Acá 'e.getMessage()' será exactamente el error que definimos en el validador
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
-
 }
