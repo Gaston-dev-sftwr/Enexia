@@ -2,9 +2,8 @@ package com.enexia.eventos.utils;
 
 import com.enexia.eventos.models.*;
 import com.enexia.eventos.repositories.*;
+import com.enexia.eventos.services.ResendService; // Importamos el motor nuevo
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +14,7 @@ import java.util.List;
 public class RecordatorioTask {
 
     @Autowired
-    private JavaMailSender mailSender;
+    private ResendService resendService; // Reemplazamos JavaMailSender por ResendService
 
     @Autowired
     private EventoRepository eventoRepository;
@@ -23,7 +22,7 @@ public class RecordatorioTask {
     @Autowired
     private InscripcionRepository inscripcionRepository;
 
-    // Se ejecuta todos los días a las 8 AM
+    // Se ejecuta según tu cron configurado
     @Scheduled(cron = "0 * * * * *")
     public void enviarRecordatorios() {
         // 1. Buscamos la fecha de mañana
@@ -33,28 +32,39 @@ public class RecordatorioTask {
         List<Evento> eventosDeManana = eventoRepository.findByFechaInicio(manana);
 
         for (Evento evento : eventosDeManana) {
-            // 3. Buscamos a los participantes anotados en ese evento
+            // 3. Buscamos a los participantes anotados en ese evento que no recibieron recordatorio
             List<Inscripcion> inscripciones = inscripcionRepository.findByEventoAndRecordatorioEnviadoFalse(evento);
 
             for (Inscripcion insc : inscripciones) {
                 Participante p = insc.getParticipante();
+
+                // 4. Enviamos el mail usando la API de Resend
                 enviarMail(p.getEmail(), p.getNombre(), evento.getNombre());
 
-                // MARCAMOS COMO ENVIADO Y GUARDAMOS EN MYSQL
+                // 5. Marcamos como enviado y guardamos en la base de datos de Aiven
                 insc.setRecordatorioEnviado(true);
                 inscripcionRepository.save(insc);
 
-                System.out.println("Recordatorio enviado y registrado para: " + p.getEmail());
+                System.out.println("✅ Recordatorio vía Resend enviado a: " + p.getEmail());
             }
         }
     }
 
     private void enviarMail(String destinatario, String nombre, String nombreEvento) {
-        SimpleMailMessage mensaje = new SimpleMailMessage();
-        mensaje.setFrom("notificaciones@enexia.com");
-        mensaje.setTo(destinatario);
-        mensaje.setSubject("¡Mañana empieza tu evento!");
-        mensaje.setText("Hola " + nombre + ",\n\nTe recordamos que mañana inicia: " + nombreEvento);
-        mailSender.send(mensaje);
+        String asunto = "¡Mañana empieza tu evento: " + nombreEvento + "!";
+
+        // Armamos un HTML lindo para el recordatorio
+        String cuerpoHtml = String.format(
+                "<div style='font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;'>" +
+                        "<h2>¡Hola %s!</h2>" +
+                        "<p>Este es un recordatorio de <strong>ENEXIA</strong>.</p>" +
+                        "<p>Te esperamos mañana para el inicio del evento: <strong>%s</strong>.</p>" +
+                        "<br><p>¡No te lo pierdas!</p>" +
+                        "</div>",
+                nombre, nombreEvento
+        );
+
+        // Llamamos al servicio que habla con la API (Puerto 443, sin bloqueos de Render)
+        resendService.enviarCorreo(destinatario, asunto, cuerpoHtml);
     }
 }
