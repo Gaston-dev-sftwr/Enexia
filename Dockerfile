@@ -6,7 +6,7 @@ WORKDIR /home/gradle/src
 RUN gradle build -x test --no-daemon
 
 # ETAPA 2: Ejecución (Run) con Java 11
-FROM openjdk:11-jdk-slim
+FROM eclipse-temurin:11-jdk
 EXPOSE 8081
 # Copiamos el ejecutable generado en la carpeta build/libs
 COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
