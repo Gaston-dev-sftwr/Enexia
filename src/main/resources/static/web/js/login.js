@@ -31,7 +31,7 @@ const app = Vue.createApp({
                 withCredentials: true
             };
 
-            axios.post('http://localhost:8081/api/login', loginData, config)
+            axios.post('/api/login', loginData, config)
                 .then(() => {
                     this.loading = false;
                     // Redirección temporal (mañana lo hacemos dual según el rol)
