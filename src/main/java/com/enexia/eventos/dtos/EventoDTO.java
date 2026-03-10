@@ -16,6 +16,8 @@ public class EventoDTO {
     private List<InscripcionDTO> inscripciones;
 
 
+    private String nombreOrganizador;
+
     private String nombre;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
@@ -29,6 +31,7 @@ public class EventoDTO {
     public EventoDTO(Evento evento) {
         this.id = evento.getId();
         this.organizadorId = evento.getOrganizador().getID();
+        this.nombreOrganizador = evento.getOrganizador().getNombre();
         this.urlImagen = evento.getUrlImagen(); // <--- MAPEAR AQUÍ
         this.nombre = evento.getNombre();
         this.fechaInicio = evento.getFechaInicio();
@@ -44,6 +47,9 @@ public class EventoDTO {
                 .collect(Collectors.toList());
     }
 
+    public String getNombreOrganizador() {
+        return nombreOrganizador;
+    }
 
     public String getUrlImagen() {
         return urlImagen;
