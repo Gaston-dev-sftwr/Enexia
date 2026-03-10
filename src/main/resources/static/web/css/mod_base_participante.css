@@ -73,3 +73,27 @@ body {
     overflow: hidden;
     box-shadow: 0 15px 40px rgba(0,0,0,0.7);
 }
+
+/* Definición del botón de inscripción de Enexia */
+.btn-details-green {
+    background-color: #198754 !important; /* Un verde vibrante (Success de Bootstrap) */
+    color: #ffffff !important;           /* Texto blanco puro */
+    border: none;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+/* Efecto al pasar el mouse (Hover) */
+.btn-details-green:hover {
+    background-color: #157347 !important;
+    transform: translateY(-2px); /* Pequeño salto hacia arriba */
+    box-shadow: 0 8px 20px rgba(25, 135, 84, 0.4) !important;
+    color: #ffffff !important;
+}
+
+/* Efecto al hacer clic */
+.btn-details-green:active {
+    transform: translateY(0);
+}
